@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <meta name="title" content="Reframing Long-Tailed Learning via Loss Landscape Geometry">
-  <meta name="description" content="A novel continual learning inspired framework tackling the long-tail dilemma via Loss Landscape Geometry, featuring Grouped Knowledge Preservation and Grouped Sharpness Aware modules.">
+  <meta name="description" content="A novel continual learning inspired framework tackling the long-tail dilemma via Loss Landscape Geometry, mitigating tail performance degradation through Grouped Knowledge Preservation and Grouped Sharpness Aware modules.">
   <meta name="keywords" content="Long-Tailed Learning, Loss Landscape, Continual Learning, Sharpness-Aware Minimization, Computer Vision, Deep Learning">
   <meta name="author" content="Shenghan Chen, Yiming Liu, Yanzhen Wang, Yujia Wang, Xiankai Lu">
   <meta name="robots" content="index, follow">
@@ -52,21 +52,22 @@
         <div class="columns is-centered">
           <div class="column has-text-centered">
             <h1 class="title is-2 publication-title">Reframing Long-Tailed Learning via Loss Landscape Geometry</h1>
+            
             <div class="is-size-5 publication-authors">
               <span class="author-block">
-                <a href="https://chenshenghan100.github.io/" target="_blank">Shenghan Chen</a><sup>*</sup>,
+                <a href="https://chenshenghan100.github.io/" target="_blank">Shenghan Chen</a><sup>1,*</sup>,
               </span>
               <span class="author-block">
-                <a href="#" target="_blank">Yiming Liu</a><sup>*</sup>,
+                <a href="#" target="_blank">Yiming Liu</a><sup>2,*</sup>,
               </span>
               <span class="author-block">
-                <a href="#" target="_blank">Yanzhen Wang</a>,
+                <a href="#" target="_blank">Yanzhen Wang</a><sup>1</sup>,
               </span>
               <span class="author-block">
-                <a href="#" target="_blank">Yujia Wang</a>,
+                <a href="#" target="_blank">Yujia Wang</a><sup>1</sup>,
               </span>
               <span class="author-block">
-                <a href="#" target="_blank">Xiankai Lu</a>
+                <a href="#" target="_blank">Xiankai Lu</a><sup>1,✉</sup>
               </span>
             </div>
 
@@ -74,11 +75,11 @@
               <span class="author-block"><sup>1</sup>Shandong University,</span>
               <span class="author-block" style="margin-left: 15px;"><sup>2</sup>Zhejiang Sci-Tech University</span>
               <br>
-              <span class="author-block" style="margin-top: 10px; font-weight: 600;">Accepted by CVPR 2026</span>
-              <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
+              <span class="author-block" style="margin-top: 10px; font-weight: 600; color: #363636;">Accepted by CVPR 2026</span>
+              <span class="eql-cntrb"><small><br><sup>*</sup>Equal Contribution &nbsp; <sup>✉</sup>Corresponding Author</small></span>
             </div>
 
-            <div class="column has-text-centered">
+            <div class="column has-text-centered" style="margin-top: 15px;">
               <div class="publication-links">
                 <span class="link-block">
                   <a href="static/pdfs/Reframing_Long_Tailed.pdf" target="_blank"
@@ -91,12 +92,12 @@
                 </span>
 
                 <span class="link-block">
-                  <a href="https://github.com/GKP-GSA/GKP-GSA" target="_blank"
+                  <a href="https://github.com/Vinccents/mkp" target="_blank"
                   class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                     <i class="fab fa-github"></i>
                   </span>
-                  <span>Code (Coming Soon)</span>
+                  <span>Code</span>
                   </a>
                 </span>
 
@@ -120,9 +121,9 @@
   <section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body has-text-centered">
-        <img src="static/images/Figure1.png" alt="Catastrophic forgetting from the loss landscape view" style="max-width: 100%; border-radius: 8px;">
+        <img src="static/images/Figure1.png" alt="Tail performance degradation from the loss landscape view" style="max-width: 100%; border-radius: 8px;">
         <h2 class="subtitle has-text-centered" style="margin-top: 15px; font-size: 1rem;">
-          <b>Figure 1: "Catastrophic forgetting" from the loss landscape view.</b> Standard training converges to a sharp region causing catastrophic forgetting of tail classes. Our optimization steers the model towards a shared, flat solution beneficial for all classes.
+          <b>Figure 1: "Tail performance degradation" from the loss landscape view.</b> Standard training converges to a sharp region causing tail performance degradation. Our optimization steers the model towards a solution that remains closer to the tail-class minimum and resides in a flatter region.
         </h2>
       </div>
     </div>
@@ -135,10 +136,10 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              Balancing performance trade-off on long-tail (LT) data distributions remains a long-standing challenge. In this paper, we posit that this dilemma stems from a phenomenon called "catastrophic forgetting" in continual learning (the model tends to severely overfit on head classes while quickly forgetting tail classes) and pose a solution from a loss landscape perspective. 
+              Balancing performance trade-off on long-tail (LT) data distributions remains a long-standing challenge. In this paper, we posit that this dilemma stems from a phenomenon called <b>"tail performance degradation"</b> (the model tends to severely overfit on head classes while quickly forgetting tail classes) and pose a solution from a loss landscape perspective. 
             </p>
             <p>
-              We observe that different classes possess divergent convergence points in the loss landscape. Besides, this divergence is aggravated when the model settles into sharp and non-robust minima, rather than a shared and flat solution that is beneficial for all classes. In light of this, we propose a continual learning inspired framework to prevent "catastrophic forgetting". To avoid inefficient per-class parameter preservation, a <b>Grouped Knowledge Preservation (GKP)</b> module is proposed to memorize group-specific convergence parameters, promoting convergence towards a shared solution. Concurrently, our framework integrates a <b>Grouped Sharpness Aware (GSA)</b> module to seek flatter minima by explicitly addressing the geometry of the loss landscape. 
+              We observe that different classes possess divergent convergence points in the loss landscape. Besides, this divergence is aggravated when the model settles into sharp and non-robust minima, rather than a shared and flat solution that is beneficial for all classes. In light of this, we propose a continual learning inspired framework to prevent "tail performance degradation". To avoid inefficient per-class parameter preservation, a <b>Grouped Knowledge Preservation (GKP)</b> module is proposed to memorize group-specific convergence parameters, promoting convergence towards a shared solution. Concurrently, our framework integrates a <b>Grouped Sharpness Aware (GSA)</b> module to seek flatter minima by explicitly addressing the geometry of the loss landscape. 
             </p>
             <p>
               Notably, our framework requires neither external training samples nor pre-trained models, facilitating the broad applicability. Extensive experiments on four benchmarks demonstrate significant performance gains over state-of-the-art methods.
@@ -157,7 +158,7 @@
           <img src="static/images/Figure3.png" alt="Overall Framework of GSA and GKP" style="max-width: 100%; margin-top: 20px;">
           <div class="content has-text-justified" style="margin-top: 20px;">
             <p>
-              Our framework consists of two key components: <b>(a) The Grouped Sharpness Aware (GSA) module</b>, which minimizes group-specific sharpness to find flat minima by decomposing the global gradient. <b>(b) The Grouped Knowledge Preservation (GKP) module</b>, which prevents catastrophic forgetting of other groups' optimal parameters using a Memory-based Grouping Strategy.
+              Our framework consists of two key components: <b>(a) The Grouped Sharpness Aware (GSA) module</b>, which minimizes group-specific sharpness to find flat minima by removing the head-dominated global perturbation direction. <b>(b) The Grouped Knowledge Preservation (GKP) module</b>, which prevents tail performance degradation of other groups' optimal parameters using a Memory-based Grouping Strategy.
             </p>
           </div>
         </div>
@@ -179,7 +180,7 @@
           <div class="item has-text-centered">
             <img src="static/images/Figure4.png" alt="Gradient Decomposition" loading="lazy" style="max-height: 400px; display: inline-block;"/>
             <h2 class="subtitle has-text-centered" style="margin-top: 15px; font-size: 0.9rem;">
-              Gradient decomposition: Extracting the beneficial, group-specific gradient from the head-dominated global gradient.
+              Gradient decomposition: Removing the head-dominated global perturbation direction to extract the beneficial, group-specific gradient.
             </h2>
           </div>
           <div class="item has-text-centered">
